@@ -21,18 +21,21 @@ public class Main {
         try {               
             BufferedReader in = new BufferedReader(new FileReader(new File(arquivo))); //local do arquivo a ser lido
             String line;
-            int lineCount = 0;
-            
+            int numeroLinhas = 0;
+            int num_colunas = 0;
+                        
             while((line = in.readLine())!=null){
+                int id_coluna = 0;
+                double custo = 0.0;
                 List<Integer> linhasCobertas = new ArrayList();
-                ++lineCount;                                                                  
-                int controle = 0;
+                ++numeroLinhas;                                                                  
+                
                 StringTokenizer token = new StringTokenizer(line, " ");
                 
-                if(lineCount == 1){    
+                if(numeroLinhas == 1){    
                     numLinhas = Integer.parseInt(token.nextToken());
                     System.out.println(numLinhas);
-                }else if(lineCount == 2){
+                }else if(numeroLinhas == 2){
                     numColunas = Integer.parseInt(token.nextToken());                   
                     System.out.println(numColunas);
                 }
@@ -47,20 +50,8 @@ public class Main {
     }
       
     public static void main(String[] args) {               
-       String arquivo = "casos/teste1.txt"; //colocar aqui o caminho do arquivo de teste
+       String arquivo = "casos/teste.txt"; //colocar aqui o caminho do arquivo de teste
         
-       if(argv >= 3){
-        POPULACAO_SIZE = strtoul(argc[2], NULL, 10);
-       }
-
-       if(argv >= 4){
-        TAXA_MIN_MUTACAO = strtod(argc[3], NULL);
-       }
-
-       if(argv >= 5){
-        SEGUNDOS_ESPERANDO = strtod(argc[4], NULL);
-       }
-       
        Main main = new Main();
        main.LerArquivoGerarVertices(arquivo);
     }
