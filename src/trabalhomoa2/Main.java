@@ -1,15 +1,22 @@
-package ag;
+package trabalhomoa2;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import trabalhomoa2.AlgoritmoGenetico;
+import java.util.ArrayList;
 
-public class Main {
-
-    private static AlgoritmoGenetico ag;
+public class Main {    
+    private static final int TAM_POPULACAO = 1000;
+    private static final double TAXA_MIN_MUTACAO = 0.1;
+    private static final int NUM_GERACOES = 1000;
+    public static final int QTD_TORNEIO = 2;
+    
+    private static ArrayList<Integer>[] Colunas;
+    private static ArrayList<Integer>[] Linhas;
+    private static Double[] Custos;
+    
     private static final String NOME_ARQUIVO = "teste.txt";
     private static int numLinhas = 0;
     private static int numColunas = 0;
@@ -34,19 +41,37 @@ public class Main {
         numColunas = Integer.parseInt(leNumColum);                
         buffer.readLine();
         
-        ag = new AlgoritmoGenetico(numLinhas, numColunas);
+        inicializaListas(numLinhas, numColunas);
         
         for (int i = 0; i < numColunas; i++) {
             leLinha = buffer.readLine();
             String infoslinha[] = leLinha.split("\\s+");
             
             double custo = Double.parseDouble(infoslinha[2]);
-            ag.leCustoPorLinha(i, custo);
+            leCustoPorLinha(i, custo);
            
             for (int j = 3; j < infoslinha.length; j++) {
-                ag.leColunasPorLinha(i, Integer.parseInt(infoslinha[j]));
+                leColunasPorLinha(i, Integer.parseInt(infoslinha[j]));
             }
-        }
-        
+        }        
     }
+    
+    public static void inicializaListas(int nLinha, int nColuna){
+        Colunas = new ArrayList[numColunas];
+        Linhas = new ArrayList[numLinhas];
+        Custos = new Double[numColunas];        
+    }
+    
+    public static void leCustoPorLinha(int coluna, double custo){
+        Custos[coluna] = custo;
+    }
+    
+    public static void leColunasPorLinha(int coluna, int linha){
+        linha--;
+        if (Colunas[coluna] == null) Colunas[coluna] = new ArrayList<>();        
+        if (Linhas[linha] == null) Linhas[linha] = new ArrayList<>();
+        
+        Colunas[coluna].add(linha);
+        Linhas[linha].add(coluna);
+    }    
 }
