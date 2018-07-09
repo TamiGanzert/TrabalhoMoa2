@@ -6,15 +6,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Main {    
+class Main {    
     private static final int TAM_POPULACAO = 1000;
     private static final double TAXA_MIN_MUTACAO = 0.1;
     private static final int NUM_GERACOES = 1000;
     public static final int QTD_TORNEIO = 2;
     
-    private static ArrayList<Integer>[] Colunas;
-    private static ArrayList<Integer>[] Linhas;
+    private static List<Integer> Colunas;
+    private static List<Integer> Linhas;
     private static Double[] Custos;
     
     private static final String NOME_ARQUIVO = "teste.txt";
@@ -57,8 +58,8 @@ public class Main {
     }
     
     public static void inicializaListas(int nLinha, int nColuna){
-        Colunas = new ArrayList[numColunas];
-        Linhas = new ArrayList[numLinhas];
+        Colunas = new ArrayList<>();
+        Linhas = new ArrayList<>();
         Custos = new Double[numColunas];        
     }
     
@@ -68,10 +69,10 @@ public class Main {
     
     public static void leColunasPorLinha(int coluna, int linha){
         linha--;
-        if (Colunas[coluna] == null) Colunas[coluna] = new ArrayList<>();        
-        if (Linhas[linha] == null) Linhas[linha] = new ArrayList<>();
+        if (Colunas.get(coluna) == null) Colunas.set(coluna - 1, coluna);        
+        if (Linhas.get(linha) == null) Linhas.set(linha);
         
-        Colunas[coluna].add(linha);
-        Linhas[linha].add(coluna);
+        Colunas.get(coluna).add(linha);
+        Linhas.get(linha).add(coluna);        
     }    
 }
